@@ -3,7 +3,36 @@
 \usepackage[english,russian]{babel}
 
 % Поля
-\usepackage[left=3cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\usepackage[paper=a4paper, left=3cm, right=2cm, top=2cm, bottom=2cm]{geometry}
 
 % Подписи
 \usepackage{amsmath}
+
+% Знак градуса
+\usepackage{textcomp}
+\usepackage{gensymb}
+
+% Отступ первого абзаца
+\usepackage{indentfirst}
+
+% Стиль названия секций
+\usepackage{titlesec}
+\titleformat{\section}{\centering}{\thesection}{}{}
+
+% Ссылки
+\usepackage[colorlinks=true, allcolors=blue, linktocpage=true]{hyperref}
+
+% Литература
+\usepackage[numbers]{natbib}
+\setcitestyle{square}
+\newcommand*{\doi}[1]{\href{http://doi.org/#1}{doi: #1}}
+
+% Оглавление
+\usepackage{tocloft}
+\usepackage[nottoc,notbib]{tocbibind}
+\setlength{\cftsecindent}{0em} 
+\setlength{\cftbeforetoctitleskip}{0em}
+\setlength{\cftaftertoctitleskip}{1em}  
+\renewcommand{\cfttoctitlefont}{\hfill\MakeUppercase} 
+\renewcommand{\cftaftertoctitle}{\hfill\hfill}  
+\renewcommand{\bibsection}{\centering ЛИТЕРАТУРА}

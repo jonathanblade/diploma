@@ -15,23 +15,51 @@
 % Отступ первого абзаца
 \usepackage{indentfirst}
 
-% Стиль названия секций
-\usepackage{titlesec}
-\titleformat{\section}{\centering}{\thesection}{}{}
+% Названия глав, секций и подсекций
+\usepackage{titlesec} 
+\titleformat{\chapter}[display]{\centering}{\large\MakeUppercase{\chaptertitlename}\ \thechapter}{1em}{\large}
+\titleformat{\section}{\centering}{\thesection}{0.5em}{}
+\titleformat{\subsection}{\centering}{\thesubsection}{0.5em}{}
+\titlespacing{\chapter}{0em}{-1em}{1em} % {left spacing}{before spacing}{after spacing}
 
 % Ссылки
 \usepackage[colorlinks=true, allcolors=blue, linktocpage=true]{hyperref}
 
-% Литература
+% Литература и ссылки
 \usepackage[numbers]{natbib}
-\setcitestyle{square}
-\newcommand*{\doi}[1]{\href{http://doi.org/#1}{doi: #1}}
+\makeatletter
+\renewcommand{\@biblabel}[1]{#1.}
+\makeatother
+% \newcommand{\doi}[1]{\href{http://doi.org/#1}{doi: #1}}
 
 % Оглавление
 \usepackage{tocloft}
-\setlength{\cftsecindent}{0em} 
-\setlength{\cftbeforetoctitleskip}{-1em}
-\setlength{\cftaftertoctitleskip}{1em}  
-\renewcommand{\cfttoctitlefont}{\hfill\MakeUppercase} 
-\renewcommand{\cftaftertoctitle}{\hfill\hfill} 
-\renewcommand{\bibsection}{\centering ЛИТЕРАТУРА}
+\usepackage{calc} % ширина слова
+% \setlength{\cftchapindent}{0em} 
+\setlength{\cftbeforetoctitleskip}{-1em} % Отступ оглавления сверху
+\setlength{\cftaftertoctitleskip}{1em}   % Отступ оглавления снизу
+
+\renewcommand{\cftchappresnum}{\MakeUppercase{\chaptername~}}
+
+\addtolength{\cftchapnumwidth}{\widthof{ГЛАВА~}} % 
+\setlength{\cftsecindent}{\widthof{ГЛАВА~}}      % Костыль для отступа глав и секций
+\setlength{\cftsubsecindent}{\widthof{ГЛАВА~1~}} %
+
+\setlength{\cftbeforesecskip}{0.5em}    % Отступ между главой и секцией
+\setlength{\cftbeforesubsecskip}{0.5em} % Отступ между секцией и подсекцией 
+
+\renewcommand{\cftchapfont}{\normalfont}     % Главы не жирные
+\renewcommand{\cftchappagefont}{\normalfont} % Номера страниц не жирные
+
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}} % Точки у глав
+
+\renewcommand{\cfttoctitlefont}{\hfill\MakeUppercase} % Оглавление по середине
+\renewcommand{\cftaftertoctitle}{\hfill\hfill}        %
+
+\renewcommand{\bibsection}{\centering ЛИТЕРАТУРА} % Литература
+
+% Картинки
+\usepackage{graphicx}
+\usepackage{chngcntr}            % Изменение нумерации
+\counterwithout{figure}{chapter} % Нумерация картинок
+\counterwithout{table}{chapter}  % Нумерация таблиц

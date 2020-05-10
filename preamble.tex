@@ -5,13 +5,6 @@
 % Поля
 \usepackage[paper=a4paper, left=3cm, right=2cm, top=2cm, bottom=2cm]{geometry}
 
-% Подписи
-\usepackage{amsmath}
-
-% Знак градуса
-\usepackage{textcomp}
-\usepackage{gensymb}
-
 % Отступ первого абзаца
 \usepackage{indentfirst}
 
@@ -19,34 +12,46 @@
 \usepackage{titlesec} 
 \titleformat{\chapter}[display]{\centering}{\large\MakeUppercase{\chaptertitlename}\ \thechapter}{1em}{\large}
 \titleformat{\section}{\centering}{\thesection}{0.5em}{}
-\titleformat{\subsection}{\centering}{\thesubsection}{0.5em}{}
-\titlespacing{\chapter}{0em}{-1em}{1em} % {left spacing}{before spacing}{after spacing}
+\titleformat{\subsection}{\raggedright}{\thesubsection}{0.5em}{}
+% {left spacing}{before spacing}{after spacing}
+\titlespacing{\chapter}{0em}{-1em}{1em} 
+\titlespacing{\section}{0em}{1em}{1em} 
+\titlespacing{\subsection}{0em}{0.5em}{0.5em} 
 
 % Ссылки
 \usepackage[colorlinks=true, allcolors=blue, linktocpage=true]{hyperref}
+\urlstyle{same}
 
-% Литература и ссылки
-\usepackage[numbers]{natbib}
+% Литература и ссылки на литературу
+\usepackage[numbers,compress]{natbib}
+\renewcommand{\bibpreamble}{\vskip1em} % Отступ от заголовка литературы
 \makeatletter
 \renewcommand{\@biblabel}[1]{#1.}
 \makeatother
-% \newcommand{\doi}[1]{\href{http://doi.org/#1}{doi: #1}}
+\newcommand{\doi}[1]{\href{https://doi.org/#1}{doi: #1}}
 
 % Оглавление
-\usepackage{tocloft}
-\usepackage{calc} % ширина слова
-% \setlength{\cftchapindent}{0em} 
-\setlength{\cftbeforetoctitleskip}{-1em} % Отступ оглавления сверху
-\setlength{\cftaftertoctitleskip}{1em}   % Отступ оглавления снизу
+\usepackage[titles]{tocloft}
+\usepackage{calc} % Ширина слова
 
-\renewcommand{\cftchappresnum}{\MakeUppercase{\chaptername~}}
+\renewcommand{\cftchappresnum}{ГЛАВА~}
+\makeatletter
+\g@addto@macro\appendix{
+  \addtocontents{toc}{
+    \protect\renewcommand{\protect\cftchappresnum}{ПРИЛОЖЕНИЕ~}
+    \addtolength{\cftchapnumwidth}{\widthof{ЖЕНИЕ~}}
+  }
+}
+\makeatother
+
+\renewcommand{\cftsecfont}{\small} % Размер шрифта секций в оглавлении
 
 \addtolength{\cftchapnumwidth}{\widthof{ГЛАВА~}} % 
 \setlength{\cftsecindent}{\widthof{ГЛАВА~}}      % Костыль для отступа глав и секций
 \setlength{\cftsubsecindent}{\widthof{ГЛАВА~1~}} %
 
-\setlength{\cftbeforesecskip}{0.5em}    % Отступ между главой и секцией
-\setlength{\cftbeforesubsecskip}{0.5em} % Отступ между секцией и подсекцией 
+\setlength{\cftbeforechapskip}{0.5em} % Отступ между главами
+\setlength{\cftbeforesecskip}{0.25em}  % Отступ между секциями
 
 \renewcommand{\cftchapfont}{\normalfont}     % Главы не жирные
 \renewcommand{\cftchappagefont}{\normalfont} % Номера страниц не жирные
@@ -56,10 +61,37 @@
 \renewcommand{\cfttoctitlefont}{\hfill\MakeUppercase} % Оглавление по середине
 \renewcommand{\cftaftertoctitle}{\hfill\hfill}        %
 
-\renewcommand{\bibsection}{\centering ЛИТЕРАТУРА} % Литература
+\renewcommand{\bibsection}{} % Литература
 
 % Картинки
 \usepackage{graphicx}
 \usepackage{chngcntr}            % Изменение нумерации
 \counterwithout{figure}{chapter} % Нумерация картинок
 \counterwithout{table}{chapter}  % Нумерация таблиц
+
+% Списки
+\usepackage{enumitem}
+
+% Подписи
+\usepackage{caption}   
+\captionsetup[table]{justification=RaggedLeft,labelsep=newline}
+\captionsetup[figure]{labelsep=period}
+
+% Чтобы переносы слов были, как в ворде 
+\usepackage[none]{hyphenat}
+\sloppy
+
+% Таблицы
+\usepackage{multirow}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{longtable}
+
+% Для альбомной ориентации
+\usepackage{pdflscape}
+
+% Misc
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{textcomp}
+\usepackage{mathtools}

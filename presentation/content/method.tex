@@ -10,11 +10,11 @@
 F. Zhou, D. Dong, W. Li, et al. GAMP: An open-source software of multi-GNSS precise point positioning using undifferenced and uncombined observations // \href{http://dx.doi.org/10.1007/s10291-018-0699-9}{GPS Solutions}. --- 2018. Vol. 22. 
 \end{frame}
 
-\begin{frame}{\textsc{Метод исследования}}{\textit{Модель PPP}}
+\begin{frame}{\textsc{Метод исследования}}
 \begin{equation*}
 \begin{aligned}
 R_r^s&=\underbrace{\vec{u}\cdot\vec{x}}_{\text{\shortstack{\\[0.85em] Геометрическое \\ расстояние}}}+\underbrace{c(\delta_r-\delta^s)}_{\text{\shortstack{\\[0.5em] Смещения \\ часов}}}+\underbrace{F\times T_V}_{\text{\shortstack{\\[0.5em] Тропосферная \\ задержка}}}+\underbrace{\alpha_fI_{L1}}_{\text{\shortstack{\\[0.5em] Ионосферная \\ задержка}}}+\underbrace{c(d_r-d^s)}_{\text{\shortstack{\\[0.5em] Некалиброванные \\ задержки}}}+\underbrace{e_r^s}_{\text{\shortstack{\\[0.5em] Другие \\ ошибки}}} \\
-\lambda\Phi_r^s&=\overbrace{\vec{u}\cdot\vec{x}}^{\text{~~~~~~~~~~~~~~~~~~~~~~}}+\overbrace{c(\delta_r-\delta^s)}+\overbrace{F\times T_V}^{\text{~~~~~~~~~~~~~~~~~~~}}-\overbrace{\alpha_fI_{L1}}^{\text{~~~~~~~~~~~~~~~~~~~~}}+\overbrace{\lambda(N+b_r-b^s)}+\overbrace{e_r^s}^{\text{~~~~~~~~~}}
+\lambda\Phi_r^s&=\overbrace{\vec{u}\cdot\vec{x}}^{\text{~~~~~~~~~~~~~~~~~~~~~~}}+\overbrace{c(\delta_r-\delta^s)}+\overbrace{F\times T_V}^{\text{~~~~~~~~~~~~~~~~~~~}}-\overbrace{\alpha_fI_{L1}}^{\text{~~~~~~~~~~~~~~~~~~~}}+\overbrace{\lambda(N+b_r-b^s)}+\overbrace{e_r^s}^{\text{~~~~~~~~~}}
 \end{aligned} 
 \end{equation*}
 \begin{description}[wide]
@@ -24,4 +24,29 @@ R_r^s&=\underbrace{\vec{u}\cdot\vec{x}}_{\text{\shortstack{\\[0.85em] Геоме
 \item[$r$] -- индекс, обозначающий приёмник;
 \item[$s$] -- индекс, обозначающий спутник.     
 \end{description}
+\end{frame}
+
+\begin{frame}{\textsc{Метод исследования}}
+\centering
+obs (файлы наблюдений) + sp3 (точные эфемериды)
+
+\vspace{1em}
+$\big\downarrow$
+
+\vspace{1em}
+GAMP
+
+\vspace{1em}
+$\big\downarrow$
+\begin{equation*}
+\begin{aligned}
+x_0=\text{median}(x) \\
+y_0=\text{median}(y) \\
+z_0=\text{median}(z)
+\end{aligned}
+\end{equation*}
+$\big\downarrow$
+\begin{equation*}
+\sigma_{xyz}=\sqrt{(x-x_0)^2+(y-y_0)^2+(z-z_0)^2}
+\end{equation*}
 \end{frame}

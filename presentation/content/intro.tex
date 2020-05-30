@@ -1,17 +1,26 @@
-\newgeometry{top=0px,bottom=0px,left=15px,right=28px} 
 \begin{frame}{\textsc{Введение}}
 \begin{tikzpicture}[
     start chain,
-    every join/.style={->},
-    block/.style={on chain,draw,rectangle,rounded corners,align=center},
+    block/.style={on chain,draw,rectangle,rounded corners,align=center,minimum width=110pt,scale=0.95},
+    outblock/.style={draw,rectangle,dashed},
     >=latex
 ]
-\node[block,join] (1) {Ионизация \\ ионосферы};
-\node[block,join=with 1,below right=of 1] (2) {Техногенная \\ (нагревательные \\ радиокомплексы)};
-\node[block,join=with 1,above right=of 1] (3) {Естественная \\ (гелиофизические \\ явления)};
-\node[block,join=with 2,join=with 3,right=of 1] (4) {Неоднородности \\ электронной \\ концентрации};
-\node[block,join=with 4] (5) {Эффекты \\ радиоволн \\ (рассеяние, \\ мерцания и т.д.)}; 
-\node[block,join=with 5] (6) {Точность \\ позиционирования \\ ГНСС}; 
+\node[block] (1) {Естественная \\ (гелиогеофизические \\ явления)};
+\node[block,below=of 1] (2) {Искусственная \\ (нагревательные \\ радиокомплексы)};
+\node[outblock,fit=(1) (2),label=Ионизация ионосферы] (3) {};
+\node[block,right=of 1] (4) {Крупные};
+\node[block,right=of 3] (5) {Средние};
+\node[block,right=of 2] (6) {Мелкие \\ ($\sim\sqrt{\lambda Z}$)};
+\node[outblock,fit=(4) (5) (6),label={[align=center]above:Неоднородности \\ электронной \\ концентрации}] (7) {};
+\node[block,right=of 4] (8) {Рефракционные};
+\node[block,right=of 6] (9) {Дифракционные};
+\node[outblock,fit=(8) (9),label=Эффекты] (10) {};
+\node[block,below=of 9] (11) {Точность \\ позиционирования \\ ГНСС};
+\draw[->] (3) -- (7); 
+\draw[->] (4) -- (8);
+\draw[->] (5) -| (8); 
+\draw[->] (6) -- (9); 
+\draw[->] (8) -- ($(8.east)+(0.5,0)$) |- (11.east) node[pos=0.25,above,rotate=-90] {Ионосферная задержка};
+\draw[->] (9) -- (11) node[midway,left] {Мерцания} ;
 \end{tikzpicture}
 \end{frame}
-\newgeometry{top=0px,bottom=5px,left=28px,right=28px} 

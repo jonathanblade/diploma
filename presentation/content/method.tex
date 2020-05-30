@@ -15,26 +15,21 @@ R_r^s&=\underbrace{\vec{u}\cdot\vec{x}}_{\text{\shortstack{\\[0.85em] Геоме
 \lambda\Phi_r^s&=\overbrace{\vec{u}\cdot\vec{x}}^{\text{~~~~~~~~~~~~~~~~~~~~~~}}+\overbrace{c(\delta_r-\delta^s)}+\overbrace{F\times T_V}^{\text{~~~~~~~~~~~~~~~~~~~}}-\overbrace{\alpha_fI_{L1}}^{\text{~~~~~~~~~~~~~~~~~~~}}+\overbrace{\lambda(N+b_r-b^s)}+\overbrace{e_r^s}^{\text{~~~~~~~~~}}
 \end{aligned} 
 \end{equation*}
-\begin{description}[wide]
-\item[$R_r^s$] -- псевдодальность по кодовым измерениям;
-\item[$\lambda\Phi_r^s$] -- псевдодальность по фазовым измерениям;
-\item[$F$] -- наклонный коэффициент; $\alpha_f=\frac{f_{L1}^2}{f^2}$;  
-\item[$r$] -- индекс, обозначающий приёмник;
-\item[$s$] -- индекс, обозначающий спутник.     
-\end{description}
-\end{frame}
-
-\begin{frame}{\textsc{Метод исследования}}
-\centering
 \begin{tikzpicture}[
     start chain,
-    every join/.style={->},
-    block/.style={on chain,draw,rectangle,rounded corners,align=center,join},
-    >=latex
+    block/.style={on chain,draw,rectangle,rounded corners,align=center,minimum width=60pt,scale=0.95},
+    outblock/.style={draw,rectangle,dashed},
+    >=latex,
+    node distance=0.5cm
 ]
-\node[block] (1) {obs (файлы наблюдений) + sp3 (точные эфемериды)};
-\node[block,below=of 1] (2) {GAMP};
-\node[block,below=of 2] (3) {
+\node[block] (1) {obs \\ (файлы наблюдений)};
+\node[block,below=of 1] (2) {sp3 \\ (точные эфемериды)};
+\node[on chain,below=of 2] (3) {...};
+\node[outblock,fit=(1) (2) (3),label=Входные данные] (4) {};
+\node[block,right=0.8cm of 1] (5) {Модель \\ PPP};
+\node[block,right=0.8cm of 2] (6) {Алгоритм \\ PPP};
+\node[outblock,fit=(5) (6),label=GAMP] (7) {};
+\node[block,right=of 7,label={[align=center]above: Истинные \\ координаты}] (8) {
     \begin{math}
     \begin{aligned}
     x_0=\text{median}(x) \\
@@ -42,9 +37,12 @@ R_r^s&=\underbrace{\vec{u}\cdot\vec{x}}_{\text{\shortstack{\\[0.85em] Геоме
     z_0=\text{median}(z)
     \end{aligned}
     \end{math}};
-\node[block,below=of 3] (4) {
+\node[block,right=of 8,label={[align=center]above: Ошибка \\ позиционирования}] (9) {
     \begin{math}
-    \sigma_{xyz}=\sqrt{(x-x_0)^2+(y-y_0)^2+(z-z_0)^2}
+    \sigma_{xyz}=\sqrt{\begin{aligned}&(x-x_0)^2+\\&(y-y_0)^2+\\&(z-z_0)^2\end{aligned}}
     \end{math}};
+\draw[->] (4) -- (7);
+\draw[->] (7) -- (8);
+\draw[->] (8) -- (9);   
 \end{tikzpicture}
 \end{frame}
